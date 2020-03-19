@@ -9,12 +9,12 @@ int Node::setValue(int val) {
 }
     
 Node::Node()
-    : key(NULL), left(nullptr), right(nullptr) {
+    : key(NULL), left(NULL), right(NULL) {
         std::cout << "Node successfully created" << std::endl;
 }
     
 Node::Node(int value)
-    : key(value), left(nullptr), right(nullptr) {
+    : key(value), left(NULL), right(NULL) {
         std::cout << "Node with value: " << value << " successfully created" << std::endl;
 }
     
@@ -41,7 +41,7 @@ Node** BinarySearchTree::getMaximum(Node*) { return NULL; }
 //
 
 BinarySearchTree::BinarySearchTree()
-    : size(0), root(nullptr) {
+    : size(0), root(NULL) {
         std::cout << "Linked list successfully initialized" << std::endl;
 }
     
