@@ -33,7 +33,7 @@ class BinarySearchTree {
         Node* insertElement(int value);
         Node** searchElementWithValue(int value);
         Node* deleteElementWithValue(int value);
-        Node** getHighestBranch(Node*);
+        Node** getMaximum(Node*);
     
     BinarySearchTree();
     ~BinarySearchTree();

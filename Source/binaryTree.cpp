@@ -37,7 +37,7 @@ Node* BinarySearchTree::setRoot(Node* node) {
 Node* BinarySearchTree::insertElement(int value) { return NULL; } 
 Node** BinarySearchTree::searchElementWithValue(int value) { return NULL; }
 Node* BinarySearchTree::deleteElementWithValue(int value) { return NULL; }
-Node** BinarySearchTree::getHighestBranch(Node*) { return NULL; }
+Node** BinarySearchTree::getMaximum(Node*) { return NULL; }
 //
 
 BinarySearchTree::BinarySearchTree()
