@@ -1,3 +1,4 @@
+CC = gcc
 CFLAGS	= -Wall -Wextra -Wno-unused-parameter
 
 all: release debug
