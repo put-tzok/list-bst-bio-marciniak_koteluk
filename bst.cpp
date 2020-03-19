@@ -25,8 +25,8 @@ int main(int argc, char **argv) {
             insert(arr, size, bst);
             insertion_time = clock() - insertion_time;
 
-            assert(bst->getSize() == size);
-            assert(isBST(bst->getRoot()));
+            assert(bst->size == size);
+            assert(isBST(bst->root));
 
             shuffle(arr, size);
 
@@ -37,9 +37,9 @@ int main(int argc, char **argv) {
             shuffle(arr, size);
 
             deleteElementsFromTree(bst, arr, size);
-            assert(bst->getSize() == 0);
+            assert(bst->size == 0);
 
-            delete bst->getRoot();
+            delete bst->root;
             delete bst;
             delete arr;
 

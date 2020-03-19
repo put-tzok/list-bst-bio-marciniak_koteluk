@@ -19,20 +19,20 @@ bool isBST(Node *element) {
     if (element == NULL) {
         return true;
     }
-    if (element->getLeftNode() == NULL && element->getRightNode() == NULL) {
+    if (element->left == NULL && element->right == NULL) {
         return true;
     }
-    if (element->getLeftNode() == NULL && element->getRightNode() != NULL) {
-        return (element->getValue() < element->getRightNode()->getValue()) && isBST(element->getRightNode());
+    if (element->left == NULL && element->right != NULL) {
+        return (element->key < element->right->key) && isBST(element->right);
     }
-    if (element->getLeftNode() != NULL && element->getRightNode() == NULL) {
-        return (element->getValue() > element->getLeftNode()->getValue()) && isBST(element->getLeftNode());
+    if (element->left != NULL && element->right == NULL) {
+        return (element->key > element->left->key) && isBST(element->left);
     }
 
-    return (element->getValue() > element->getLeftNode()->getValue())
-        && (element->getValue() < element->getRightNode()->getValue())
-        && isBST(element->getLeftNode())
-        && isBST(element->getRightNode());
+    return (element->key > element->left->key)
+        && (element->key < element->right->key)
+        && isBST(element->left)
+        && isBST(element->right);
 }
 
 void insertIncreasing(int *arr, int size, BinarySearchTree* bst) {
@@ -53,14 +53,14 @@ void searchTree(BinarySearchTree* bst, int* values, int size) {
         Node** foundNode = bst->searchElementWithValue(values[k]);
         Node* currentNode = *foundNode;
         assert(currentNode != NULL);
-        assert(currentNode->getValue() == values[k]);
+        assert(currentNode->key == values[k]);
     }
 }
 
 void deleteElementsFromTree(BinarySearchTree* bst, int* values, int size) {
     for (unsigned int l = 0, m = size; l < size; l++, m--) {
-        assert(bst->getSize() == m);
+        assert(bst->size == m);
         bst->deleteElementWithValue(values[l]);
-        assert(isBST(bst->getRoot()));
+        assert(isBST(bst->root));
     }
 }
