@@ -23,16 +23,16 @@ bool isBST(Node *element) {
         return true;
     }
     if (element->getLeftNode() == NULL && element->getRightNode() != NULL) {
-        return (element->getValue() < element->getRightNode()->getValue()) && is_bst(element->getRightNode());
+        return (element->getValue() < element->getRightNode()->getValue()) && isBST(element->getRightNode());
     }
     if (element->getLeftNode() != NULL && element->getRightNode() == NULL) {
-        return (element->getValue() > element->getLeftNode()->getValue()) && is_bst(element->getLeftNode());
+        return (element->getValue() > element->getLeftNode()->getValue()) && isBST(element->getLeftNode());
     }
 
     return (element->getValue() > element->getLeftNode()->getValue())
         && (element->getValue() < element->getRightNode()->getValue())
-        && is_bst(element->getLeftNode())
-        && is_bst(element->getRightNode());
+        && isBST(element->getLeftNode())
+        && isBST(element->getRightNode());
 }
 
 void insertIncreasing(int *arr, int size, BinarySearchTree* bst) {
@@ -61,6 +61,6 @@ void deleteElementsFromTree(BinarySearchTree* bst, int* values, int size) {
     for (unsigned int l = 0, m = size; l < size; l++, m--) {
         assert(bst->getSize() == m);
         bst->deleteElementWithValue(values[l]);
-        assert(is_bst(bst->getRoot()));
+        assert(isBST(bst->getRoot()));
     }
 }
