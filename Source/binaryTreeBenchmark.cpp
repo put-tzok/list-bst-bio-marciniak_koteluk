@@ -1,6 +1,6 @@
 #include "../Headers/binaryTreeBenchmark.h"
 
-void fill_increasing(int *arr, int size) {
+void fillIncreasing(int *arr, int size) {
     for (int i = 0; i < size; i++) {
         arr[i] = i;
     }
@@ -15,7 +15,7 @@ void shuffle(int *arr, int size) {
     }
 }
 
-bool is_bst(Node *element) {
+bool isBST(Node *element) {
     if (element == NULL) {
         return true;
     }

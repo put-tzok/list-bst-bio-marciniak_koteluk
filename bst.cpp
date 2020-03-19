@@ -19,14 +19,14 @@ int main(int argc, char **argv) {
             unsigned int size = ns[j];
 
             int *arr = new int[size];
-            fill_increasing(arr, size);
+            fillIncreasing(arr, size);
 
             clock_t insertion_time = clock();
             insert(arr, size, bst);
             insertion_time = clock() - insertion_time;
 
             assert(bst->getSize() == size);
-            assert(is_bst(bst->getRoot()));
+            assert(isBST(bst->getRoot()));
 
             shuffle(arr, size);
 
