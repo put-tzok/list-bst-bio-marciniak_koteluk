@@ -53,7 +53,7 @@ Node* LinkedList::insertElement(int value) {
 }
 
 Node* LinkedList::searchElementWithValue(int value) { 
-    for(Node* i = this->getHead()->getNextNode(); i != NULL; i = i->getNextNode()) {
+    for(Node* i = this->getHead(); i != NULL; i = i->getNextNode()) {
         if(i->getValue() == value) return i;
     }
     return NULL;

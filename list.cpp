@@ -2,7 +2,7 @@
 #include <linkedList.h>
 #include <linkedListBenchmark.h>
 
-unsigned int ns[] = { 10, /* TODO: fill values which will be used as lists' sizes */ };
+unsigned int ns[] = { 10, 100, 1000, 10000, 20000, 30000, 40000, 50000 };
 
 int main() {
     bool shuffleArrayInCurrentIteration[] = { false, true };
@@ -42,6 +42,8 @@ int main() {
             std::cout << size << std::endl 
             << (checkShuffle ? "true" : "false") << std::endl 
             << (double)insertion_time / CLOCKS_PER_SEC << std::endl << (double)search_time / CLOCKS_PER_SEC << std::endl;
+
+            std::cout << std::endl;
         }
     }
     return 0;

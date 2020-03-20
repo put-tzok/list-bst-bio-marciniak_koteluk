@@ -3,20 +3,32 @@
 #include <iostream>
 
 class Node {
-    public:
-        int key;
-        Node* left;
-        Node* right;
+    int key;
+    Node* left;
+    Node* right;
 
+    public:
+        Node* getLeftNode();
+        Node* getRightNode();
+
+        int getValue();
+        int setValue(int val);
+    
     Node();
     Node(int value);
     ~Node();
 };
 
 class BinarySearchTree {
+    unsigned int size;
+    Node* root;
+
     public:
-        unsigned int size;
-        Node* root;
+        int getSize();
+        int setSize(int val);
+
+        Node* getRoot();
+        Node* setRoot(Node* node);
         
         Node* insertElement(int value);
         Node** searchElementWithValue(int value);
