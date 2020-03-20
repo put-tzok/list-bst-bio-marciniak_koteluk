@@ -19,7 +19,7 @@ void insertElements(LinkedList* list, int* values, int size) {
     for (unsigned int k = 0; k < size; k++) {
         Node* insertedNode = list->insertElement(values[k]);
         assert(insertedNode != NULL);
-        assert(insertedNode->key == values[k]);
+        assert(insertedNode->getValue() == values[k]);
     }
 }
 
@@ -27,13 +27,13 @@ void searchElements(LinkedList* list, int* values, int size) {
     for (unsigned int k = 0; k < size; k++) {
         Node* insertedNode = list->searchElementWithValue(values[k]);
         assert(insertedNode != NULL);
-        assert(insertedNode->key == values[k]);
+        assert(insertedNode->getValue() == values[k]);
     }
 }
 
 void deleteElements(LinkedList* list, int* values, int size) {
     for (unsigned int k = 0, l = size; k < size; k++, l--) {
-        assert(list->size == l);
+        assert(list->getSize() == l);
         list->deleteElementWithValue(values[k]);
     }
 }

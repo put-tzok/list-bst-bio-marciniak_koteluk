@@ -34,8 +34,8 @@ int main() {
             shuffle(arr, size);
 
             deleteElements(list, arr, size);
-            assert(list->size == 0);
-            assert(list->head == NULL);
+            assert(list->getSize() == 0);
+            assert(list->getHead() == NULL);
 
             delete arr;
 
