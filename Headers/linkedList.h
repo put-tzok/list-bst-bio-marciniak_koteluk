@@ -14,7 +14,6 @@ class Node {
         int setValue(int val);
 
     Node();
-    Node(Node* node);
     Node(int value, Node* node);
     ~Node();
 };

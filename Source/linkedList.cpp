@@ -12,16 +12,10 @@ int Node::setValue(int val) {
     return this->key;
 }
 
-Node::Node()
-    : key(-1), next(new Node(NULL)) {
+Node::Node() {
         // std::cout << "Node successfully created" << std::endl;
 }
 
-Node::Node(Node* node) 
-    : next(node) {
-        // std::cout << "Node successfully created" << std::endl;
-    }
-    
 Node::Node(int value, Node* node)
     : key(value), next(node) {
         // std::cout << "Node with value: " << value << " successfully created" << std::endl;
@@ -44,12 +38,11 @@ Node* LinkedList::setHead(Node* node) {
 }
 
 Node* LinkedList::insertElement(int value) { 
-    Node* createdNode = new Node(value, this->getHead()->getNextNode());
-    this->getHead()->setNextNode(createdNode);
+    Node* createdNode = new Node(value, this->getHead());
+    this->setHead(createdNode);
 
-    int size = this->getSize();
-    this->setSize(++size);
-    return createdNode;
+    this->setSize(this->getSize() + 1);
+    return this->getHead();
 }
 
 Node* LinkedList::searchElementWithValue(int value) { 
@@ -60,25 +53,15 @@ Node* LinkedList::searchElementWithValue(int value) {
 }
 
 void LinkedList::deleteElementWithValue(int value) { 
-    if(this->getSize() == 1) {
-        delete this->getHead()->getNextNode();
-
-        int size = this->getSize();
-        this->setSize(--size);
-        this->setHead(NULL);
-        return;
-    }
-
-    Node* temp = this->getHead()->getNextNode()->getNextNode();
-    delete this->getHead()->getNextNode();
-    this->getHead()->setNextNode(temp);
+    Node* temp = this->getHead()->getNextNode();
+    delete this->getHead();
+    this->setHead(temp);
     
-    int size = getSize();
-    this->setSize(--size);
+    this->setSize(this->getSize() - 1);
 }
     
 LinkedList::LinkedList()
-: size(0), head(new Node()) {
+: size(0), head(NULL) {
     // std::cout << "Linked list successfully initialized" << std::endl;
 }
     
