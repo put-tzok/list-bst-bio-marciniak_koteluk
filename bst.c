@@ -5,7 +5,7 @@
 #include <signal.h>
 #include <time.h>
 
-unsigned int ns[] = { 10, /* TODO: fill values which will be used as lists' sizes */ };
+unsigned int ns[] = { 10, 100, 1000, 20000, 30000, 40000, 50000};
 
 // each tree node contains an integer key and pointers to left and right children nodes
 struct node {
@@ -17,29 +17,148 @@ struct node {
 // tree's beginning is called the root
 struct node *root = NULL;
 
+unsigned int counter=0;
+
 struct node **tree_search(struct node **candidate, int value) {
-    // TODO: implement
+    //wezel ma szukana wartosc
+    if ((*candidate)->key == value){
+        return candidate;
+    }
+    //jezeli szukana wartosc jest mniejsza od tej w danym wezle to szukamy w lewym poddrzewie, jesli ono istnieje
+    else if ((*candidate)->key > value && (*candidate)->left != NULL){
+        return tree_search((*candidate)->left, value);
+    }
+    //jezeli szukana wartosc jest wieksza od tej w danym wezle to szukamy w prawym poddrzewie, jesli ono istnieje
+    else if ((*candidate)->key < value && (*candidate)->right != NULL){
+        return tree_search((*candidate)->right, value);
+    }
     return NULL;
+}
+
+void insert(struct node *new_node, int value){
+    //jezeli wartosc dodawanego wezla jest mniejsza od wartosci w danym wezle to do lewego poddrzewa
+    if(root->key > value){
+        if(root->left !=NULL){
+            insert(root->left, value);
+        }
+        //jezeli lewe poddrzewo nie istnieje to stworz lewe poddrzewo
+        else {
+            struct node *new_node= (struct node*) malloc(sizeof *new_node);
+            new_node->key= value;
+            new_node->left= NULL;
+            new_node->right= NULL;
+            root->left = new_node;
+        }
+    }
+    //jezeli watosc dodawanego wezla jest wieksza lub rowna od wartosci w danym wezle to do prawego poddrzewa
+    else{
+        if (root->right != NULL){
+            insert(root->right, value);
+        }
+        //jezeli prawe poddrzewo nie istnieje to stworz prawe poddrzewo
+        else {
+            new_node= (struct node*) malloc(sizeof *new_node);
+            new_node->key= value;
+            new_node->left= NULL;
+            new_node->right= NULL;
+            root->right = new_node;
+        }
+
+    }
+    counter++;
 }
 
 struct node* tree_insert(int value) {
-    // TODO: implement
+    //jezeli drzewo jest puste (nie ma korzenia) to dodajemy korzen
+    if(root==NULL){
+        struct node *new_node= (struct node*) malloc(sizeof *new_node);
+        new_node->key= value;
+        new_node->left= NULL;
+        new_node->right= NULL;
+        root = new_node;
+    }
+    else{
+         //jezeli wartosc dodawanego wezla jest mniejsza od wartosci w danym wezle to do lewego poddrzewa
+    if(root->key > value){
+        if(root->left !=NULL){
+            insert(root->left, value);
+        }
+        //jezeli lewe poddrzewo nie istnieje to stworz lewe poddrzewo
+        else {
+            struct node *new_node= (struct node*) malloc(sizeof *new_node);
+            new_node->key= value;
+            new_node->left= NULL;
+            new_node->right= NULL;
+            root->left = new_node;
+        }
+    }
+    //jezeli watosc dodawanego wezla jest wieksza lub rowna od wartosci w danym wezle to do prawego poddrzewa
+    else{
+        if (root->right != NULL){
+            insert(root->right, value);
+        }
+        //jezeli prawe poddrzewo nie istnieje to stworz prawe poddrzewo
+        else {
+            struct node *new_node= (struct node*) malloc(sizeof *new_node);
+            new_node->key= value;
+            new_node->left= NULL;
+            new_node->right= NULL;
+            root->right = new_node;
+        }
+
+    }
+
+    }
     return NULL;
 }
-
-
 
 struct node **tree_maximum(struct node **candidate) {
-    // TODO: implement
+    //jezeli wezel ma prawe poddrzewo to idziemy do niego
+    if((*candidate)->right != NULL){
+        tree_maximum((*candidate)->right);
+    }
+    //jesli wezel nie ma prawego poddrzewa to znaczy, ze dany wezel jest najwiekszy
+    else{
+        return candidate;
+    }
     return NULL;
 }
 
-void tree_delete(int value) {
-    // TODO: implement
+void tree_delete(int value){
+    if(root==NULL){
+        return NULL;//bo drzewo jest puste
+    }
+    //najpierw trzeba znalezc wezel o zadanej wielkosci
+    struct node *node= NULL;
+    node = tree_search(root, value);
+    //jesli wezel jest lisciem (nie ma zadnych synow) to po prostu go usuwamy
+    if(node ->left == NULL && node->right == NULL){
+        free(node);
+        node= NULL;
+    }
+    //jesli wezel ma tylko lewe poddrzewo
+    else if(node->left != NULL && node->right == NULL){
+        struct node *tmp = node;
+        node = node->left;
+        free(tmp);
+    }
+    //jesli wezel ma tylko prawe poddrzewo
+    else if(node->left == NULL && node->right != NULL){
+        struct node *tmp = node;
+        node= node->right;
+        free(tmp);
+    }
+    //jesli wezel ma oba poddrzewa
+    else{
+        struct node *tmp = tree_maximum(node->left);
+        node->key = tmp->key;
+        free(tmp);
+    }
 }
 
+//zwraca liczbe elementow w drzewie BST
 unsigned int tree_size(struct node *element) {
-    // TODO: implement
+    return counter;
     return 0;
 }
 
@@ -118,8 +237,26 @@ void insert_random(int *t, int n) {
     }
 }
 
+void binary(int *t, int p, int n){
+    //jesli tablica ma tylko jeden element to go wstaw
+    if(p==n){
+        tree_insert(t[p]);
+    }
+    //jesli tablica ma tylko dwa elementy to wstaw obydwa
+    else if(n-p == 1){
+        tree_insert(t[p]);
+        tree_insert(t[n]);
+    }
+    //jesli lista jest dluzsza
+    else{
+        int h= (p+n)/2; //znajdujemy polowe
+        binary(t,p,h-1); //dzielimy tablice na mniejsze az nie znajdziemy wskazanego indeksu
+        binary(t,h+1,n);
+    }
+}
+
 void insert_binary(int *t, int n) {
-    // TODO: implement
+    binary(t,0,n-1);
 }
 
 char *insert_names[] = { "Increasing", "Random", "Binary" };
