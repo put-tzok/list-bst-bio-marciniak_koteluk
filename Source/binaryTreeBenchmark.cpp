@@ -74,6 +74,7 @@ void Binary(int *arr, unsigned int first, unsigned int last, BinarySearchTree* b
     }
     else{
         unsigned int q= first + (last - first)/2;
+        bst->insertElement(arr[q]);
         Binary(arr, first, q-1, bst);
         Binary(arr, q+1, last, bst);
     }    
