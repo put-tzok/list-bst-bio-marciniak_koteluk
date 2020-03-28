@@ -26,10 +26,10 @@ bool isBST(Node *element) {
         return (element->getValue() < element->getRightNode()->getValue()) && isBST(element->getRightNode());
     }
     if (element->getLeftNode() != NULL && element->getRightNode() == NULL) {
-        return (element->getValue() > element->getLeftNode()->getValue()) && isBST(element->getLeftNode());
+        return (element->getValue() >= element->getLeftNode()->getValue()) && isBST(element->getLeftNode());
     }
 
-    return (element->getValue() > element->getLeftNode()->getValue())
+    return (element->getValue() >= element->getLeftNode()->getValue())
         && (element->getValue() < element->getRightNode()->getValue())
         && isBST(element->getLeftNode())
         && isBST(element->getRightNode());

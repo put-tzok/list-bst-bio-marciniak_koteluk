@@ -20,16 +20,16 @@ int Node::setValue(int val) {
     
 Node::Node()
     : key(0), left(NULL), right(NULL) {
-        std::cout << "Node successfully created" << std::endl;
+        // std::cout << "Node successfully created" << std::endl;
 }
     
 Node::Node(int value)
     : key(value), left(NULL), right(NULL) {
-        std::cout << "Node with value: " << value << " successfully created" << std::endl;
+        // std::cout << "Node with value: " << value << " successfully created" << std::endl;
 }
     
 Node::~Node() {
-    std::cout << "Node successfully deleted" << std::endl;
+    // std::cout << "Node successfully deleted" << std::endl;
 }
 
 unsigned int BinarySearchTree::getSize() { return this->size; }
@@ -46,6 +46,7 @@ Node* BinarySearchTree::setRoot(Node* node) {
 Node* BinarySearchTree::insertElement(int value) {
     if(this->getRoot() == NULL) {
         this->setRoot(new Node(value));
+        this->setSize(1);
         return this->getRoot();
     }
 
@@ -57,6 +58,7 @@ Node* BinarySearchTree::insertElement(int value) {
         node->setLeftNode(new Node(value));
     }
 
+    this->setSize(this->getSize() + 1);
     return node;
 }
 
@@ -72,15 +74,40 @@ Node* BinarySearchTree::searchElementWithValue(Node* node, int value) {
     if(node->getLeftNode() == NULL) return node;
     return this->searchElementWithValue(node->getLeftNode(), value);
 }
-Node* BinarySearchTree::deleteElementWithValue(int value) { return NULL; }
 
-Node* BinarySearchTree::getMaximum(Node*) { return NULL; }
+Node* BinarySearchTree::deleteElementWithValue(int value) { 
+    Node* node = this->searchElementWithValue(this->getRoot(), value);
+
+    // if(node->getValue() < value) node = node->getRightNode();
+    // else if(node->getValue() > value) node = node->getLeftNode();
+
+    if(node->getLeftNode() == NULL && node->getRightNode() == NULL)
+        node = NULL;
+    else if(node->getLeftNode() != NULL && node->getRightNode() == NULL)
+        node = node->getLeftNode();
+    else if(node->getLeftNode() == NULL && node->getRightNode() != NULL)
+        node = node->getRightNode();
+    else {
+        Node* maxnodeptr = this->getMaximum(node->getLeftNode());
+        node->setValue(maxnodeptr->getValue());
+        maxnodeptr = maxnodeptr->getLeftNode();
+    }
+
+    this->setSize(this->getSize() - 1);
+    return node;
+}
+
+Node* BinarySearchTree::getMaximum(Node* node) { 
+    if(node->getRightNode() != NULL)
+        return this->getMaximum(node->getRightNode());
+    return node;
+}
 
 BinarySearchTree::BinarySearchTree()
     : size(0), root(NULL) {
-        std::cout << "Linked list successfully initialized" << std::endl;
+        // std::cout << "Binary search tree successfully initialized" << std::endl;
 }
     
 BinarySearchTree::~BinarySearchTree() {
-    std::cout << "Linked list successfully deleted" << std::endl;
+    // std::cout << "Binary search tree successfully deleted" << std::endl;
 }
