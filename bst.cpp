@@ -1,7 +1,10 @@
 #include "Headers/binaryTree.h"
 #include "Headers/binaryTreeBenchmark.h"
+#include <fstream>
+#include <iostream>
+#include <cstdio>
 
-unsigned int ns[] = { 10, 100, 1000, 10000, 20000, 30000, 40000, 50000};
+unsigned int ns[] = { 10, 100, 1000, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000};
 
 std::string insertFunctionsNames[] = { "Increasing", "Random", "Binary" };
 void (*insertFunctions[])(int*, unsigned int, BinarySearchTree*) = { insertIncreasing, insertRandom, insertBinary };
@@ -44,6 +47,12 @@ int main() {
             << insertFunctionsNames[i] << std::endl 
             << (double)insertion_time / CLOCKS_PER_SEC << std::endl 
             << (double)search_time / CLOCKS_PER_SEC << std::endl;
+
+            FILE* data;
+            data= fopen("./data.txt", "a");
+            fprintf(data, "%u\t%f\t%f\n", size, (double)insertion_time / CLOCKS_PER_SEC, (double)search_time / CLOCKS_PER_SEC);
+            printf("%u\t%f\t%f\n", size, (double)insertion_time / CLOCKS_PER_SEC, (double)search_time / CLOCKS_PER_SEC);
+            fclose(data);
         }
     }
     return 0;

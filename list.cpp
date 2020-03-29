@@ -2,7 +2,7 @@
 #include <linkedList.h>
 #include <linkedListBenchmark.h>
 
-unsigned int ns[] = { 10, 100, 1000, 10000, 20000, 30000, 40000, 50000 };
+unsigned int ns[] = { 10, 100, 1000, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000};
 
 int main() {
     bool shuffleArrayInCurrentIteration[] = { false, true };
@@ -49,6 +49,12 @@ int main() {
             << (double)deletion_time / CLOCKS_PER_SEC << std::endl;
 
             std::cout << std::endl;
+
+            FILE* data;
+            data= fopen("./data_list.txt", "a");
+            fprintf(data, "%d\t%u\t%f\t%f\t%f\n", shuffleArrayInCurrentIteration[i], size, (double)insertion_time / CLOCKS_PER_SEC, (double)search_time / CLOCKS_PER_SEC, (double)deletion_time / CLOCKS_PER_SEC);
+            printf("%d\t%u\t%f\t%f\t%f\n", shuffleArrayInCurrentIteration[i], size, (double)insertion_time / CLOCKS_PER_SEC, (double)search_time / CLOCKS_PER_SEC, (double)deletion_time / CLOCKS_PER_SEC);
+            fclose(data);
         }
     }
     return 0;
