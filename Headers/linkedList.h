@@ -23,8 +23,8 @@ class LinkedList {
     Node* head;
 
     public:
-        int getSize();
-        int setSize(int val);
+        unsigned int getSize();
+        unsigned int setSize(int val);
 
         Node* getHead();
         Node* setHead(Node* node);

@@ -12,7 +12,8 @@ int Node::setValue(int val) {
     return this->key;
 }
 
-Node::Node() {
+Node::Node()
+    :next(NULL) {
         // std::cout << "Node successfully created" << std::endl;
 }
 
@@ -25,8 +26,8 @@ Node::~Node() {
     // std::cout << "Node successfully deleted" << std::endl;
 }
 
-int LinkedList::getSize() { return this->size; }
-int LinkedList::setSize(int val) { 
+unsigned int LinkedList::getSize() { return this->size; }
+unsigned int LinkedList::setSize(int val) { 
     this->size = val;
     return this->size;
 }
@@ -53,11 +54,18 @@ Node* LinkedList::searchElementWithValue(int value) {
 }
 
 void LinkedList::deleteElementWithValue(int value) { 
-    Node* temp = this->getHead()->getNextNode();
-    delete this->getHead();
-    this->setHead(temp);
-    
-    this->setSize(this->getSize() - 1);
+    Node* prevNode = NULL;
+
+    for(Node* i = this->getHead(); i != NULL; prevNode = i, i = i->getNextNode()) {
+        if(i->getValue() == value) {
+            if(prevNode == NULL) 
+                this->setHead(i->getNextNode());
+            else
+                prevNode->setNextNode(i->getNextNode());
+            this->setSize(this->getSize() - 1);
+            return;
+        }
+    }
 }
     
 LinkedList::LinkedList()

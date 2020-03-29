@@ -33,7 +33,10 @@ int main() {
 
             shuffle(arr, size);
 
+            clock_t deletion_time = clock();
             deleteElements(list, arr, size);
+            deletion_time = clock() - deletion_time;
+
             assert(list->getSize() == 0);
             assert(list->getHead() == NULL);
 
@@ -41,7 +44,9 @@ int main() {
 
             std::cout << size << std::endl 
             << (checkShuffle ? "true" : "false") << std::endl 
-            << (double)insertion_time / CLOCKS_PER_SEC << std::endl << (double)search_time / CLOCKS_PER_SEC << std::endl;
+            << (double)insertion_time / CLOCKS_PER_SEC << std::endl 
+            << (double)search_time / CLOCKS_PER_SEC << std::endl
+            << (double)deletion_time / CLOCKS_PER_SEC << std::endl;
 
             std::cout << std::endl;
         }
